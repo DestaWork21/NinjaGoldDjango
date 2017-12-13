@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body{
+			text-align: center;
+			border: 5px dashed blue;
+		}
+
+		#waper {
+			margin: auto;
+			border: 2px dashed rgb(34, 0, 128);
+			display: flex;
+		}
+
+		.loc{
+			display: inline-block;
+			height: 150px;
+			width: 250px;
+			
+			border: 2px dashed rgb(34, 0, 128);
+			display: inline-block;
+		}
+		#act {
+			height: 300px;
+			width: 450px;
+			overflow: auto;
+			border: 2px dashed rgb(34, 0, 128);
+			display: inline-block;
+		}
+
+	</style>
+	<title>ninja gold</title>
+</head> 
+<body>
+<div id ="wraper">
+<h1>Hello Ninja Gold</h1>
+<h3>You have {{ request.session.gold }} golds</h3>
+
+<div class="loc">
+<fieldset>
+	<legend>Farm</legend>
+	<form action="/process_gold/farm" method="post">
+		<p>Earn between 10 and 20 gold</p>
+		{% csrf_token %} 
+		<input type="submit" value="find_gold">
+	</form>
+</fieldset>
+</div>
+
+<div class="loc">
+<fieldset>
+	<legend>Cave</legend>
+	<form action="/process_gold/cave" method="post">
+		<p>Earn between 5 and 10 gold</p>
+		{% csrf_token %} 
+		<input type="submit" value="find_gold">
+	</form>
+</fieldset>
+</div>
+
+<div class="loc">
+<fieldset>
+	<legend>House</legend>
+	<form action="/process_gold/house" method="post">
+		<p>Earn between 2 and 5 gold</p>
+		{% csrf_token %} 
+		<input type="submit" value="find_gold">
+	</form>
+</fieldset>
+</div>
+
+	<div class="loc">
+	<fieldset>
+		<legend>Casino</legend>
+		<form action="/process_gold/casino" method="post">
+			<p>Earn/Lose 0-50 gold</p>
+			{% csrf_token %} 
+			<input type="submit" value="find_gold">
+		</form>
+	</fieldset>
+	</div>
+
+	<div id="act">
+		{% for x in request.session.activity reversed %}
+			{% if "earned" in x %}
+
+				<p style="color:green"> {{x}}</p>
+			{% else %}
+				<p style="color:red"> {{x}}</p>
+			{% endif %}	
+		{% endfor %}
+	</div>
+</div>
+</body>
+</html>
